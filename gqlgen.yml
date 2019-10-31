@@ -13,3 +13,6 @@ resolver:
   filename: resolver.go
   type: Resolver
 autobind: []
+models:
+  User:
+    model: github.com/BolajiOlajide/golang-graphql-user-mgr.User

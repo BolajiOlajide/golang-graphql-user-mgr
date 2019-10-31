@@ -239,7 +239,7 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 	args := map[string]interface{}{}
 	var arg0 NewUser
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐNewUser(ctx, tmp)
+		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐNewUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -339,7 +339,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	res := resTmp.(*User)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_users(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -376,7 +376,7 @@ func (ec *executionContext) _Query_users(ctx context.Context, field graphql.Coll
 	res := resTmp.([]*User)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2285,7 +2285,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐNewUser(ctx context.Context, v interface{}) (NewUser, error) {
+func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐNewUser(ctx context.Context, v interface{}) (NewUser, error) {
 	return ec.unmarshalInputNewUser(ctx, v)
 }
 
@@ -2303,11 +2303,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx context.Context, sel ast.SelectionSet, v User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx context.Context, sel ast.SelectionSet, v User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx context.Context, sel ast.SelectionSet, v []*User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx context.Context, sel ast.SelectionSet, v []*User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2331,7 +2331,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋBolajiOlajideᚋgo
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalOUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2344,7 +2344,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋBolajiOlajideᚋgo
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
 	if v == nil {
 		if !ec.HasError(graphql.GetResolverContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2626,11 +2626,11 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return ec.marshalOString2string(ctx, sel, *v)
 }
 
-func (ec *executionContext) marshalOUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx context.Context, sel ast.SelectionSet, v User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2githubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx context.Context, sel ast.SelectionSet, v User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑtodoᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋBolajiOlajideᚋgolangᚑgraphqlᚑuserᚑmgrᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

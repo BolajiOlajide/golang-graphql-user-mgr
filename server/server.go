@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/99designs/gqlgen/handler"
-	golang_graphql_user_mgr "github.com/BolajiOlajide/golang-graphql-todo"
+	golang_graphql_user_mgr "github.com/BolajiOlajide/golang-graphql-user-mgr"
 )
 
 const defaultPort = "8080"
