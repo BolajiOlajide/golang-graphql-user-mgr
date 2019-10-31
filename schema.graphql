@@ -7,7 +7,7 @@ type User {
   updated_at: Int!
 }
 
-type NewUser {
+input NewUser {
   first_name: String!
   last_name: String!
   email: String!
