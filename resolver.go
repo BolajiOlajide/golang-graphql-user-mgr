@@ -2,6 +2,8 @@ package golang_graphql_user_mgr
 
 import (
 	"context"
+	"errors"
+	"strconv"
 	"time"
 ) // THIS CODE IS A STARTING POINT ONLY. IT WILL NOT BE UPDATED WITH SCHEMA CHANGES.
 
@@ -28,17 +30,46 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*User
 		FirstName: input.FirstName,
 		LastName:  input.LastName,
 		Email:     input.Email,
-		Password:  input.Password,
 		CreatedAt: nanos,
 		UpdatedAt: 0,
 	}
 
-	err := user.Create()
+	err := user.HashPassword(input.Password)
+	if err != nil {
+		return nil, err
+	}
+
+	err = user.Create()
 	if err != nil {
 		return nil, err
 	}
 
 	return user, nil
+}
+
+func (r *mutationResolver) Login(ctx context.Context, email string, password string) (*Token, error) {
+	user, err := FindUserByEmail(email)
+	if err != nil || user == nil {
+		return nil, errors.New("user not found")
+	}
+
+	if !user.ComparePassword(password) {
+		return nil, errors.New("email or password isn't correct")
+	}
+
+	expiredAt := time.Now().Add(time.Hour * 1).Unix()
+
+	userID, err := strconv.ParseInt(user.ID, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	token := &Token{
+		Token:     JWTCreate(int(userID), expiredAt),
+		ExpiredAt: int(expiredAt),
+	}
+
+	return token, nil
 }
 
 type queryResolver struct{ *Resolver }

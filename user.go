@@ -1,6 +1,10 @@
 package golang_graphql_user_mgr
 
-import "strconv"
+import (
+	"strconv"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 // User overridden user model
 type User struct {
@@ -29,24 +33,17 @@ func (user *User) Create() error {
 	return nil
 }
 
-// GetAllUsers fetch all users from the database
-func GetAllUsers() ([]*User, error) {
-	var result []*User
-
-	rows, err := DB.Query("SELECT id, first_name, last_name, email, created_at, updated_at FROM `users`;")
+// HashPassword method for hashing user's password
+func (user *User) HashPassword(password string) error {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 10)
 	if err != nil {
-		return nil, err
+		return err
 	}
+	user.Password = string(hashedPassword)
+	return nil
+}
 
-	defer rows.Close()
-	for rows.Next() {
-		var user User
-		err := rows.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.CreatedAt, &user.UpdatedAt)
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, &user)
-	}
-
-	return result, nil
+// ComparePassword method to validate a user's password
+func (user *User) ComparePassword(password string) bool {
+	return bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)) == nil
 }
