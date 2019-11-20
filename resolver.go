@@ -5,11 +5,15 @@ import (
 	"time"
 ) // THIS CODE IS A STARTING POINT ONLY. IT WILL NOT BE UPDATED WITH SCHEMA CHANGES.
 
+// Resolver resolver for this rubbish
 type Resolver struct{}
 
+// Mutation for this rubbish
 func (r *Resolver) Mutation() MutationResolver {
 	return &mutationResolver{r}
 }
+
+// Query for this rubbish
 func (r *Resolver) Query() QueryResolver {
 	return &queryResolver{r}
 }
@@ -17,11 +21,8 @@ func (r *Resolver) Query() QueryResolver {
 type mutationResolver struct{ *Resolver }
 
 func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*User, error) {
-	// panic("not implemented")
-	// insert into our database
-
 	now := time.Now()
-	nanos := now.UnixNano()
+	nanos := now.Unix()
 
 	user := &User{
 		FirstName: input.FirstName,
@@ -29,34 +30,19 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*User
 		Email:     input.Email,
 		Password:  input.Password,
 		CreatedAt: nanos,
-		UpdatedAt: nanos,
+		UpdatedAt: 0,
 	}
+
+	err := user.Create()
+	if err != nil {
+		return nil, err
+	}
+
 	return user, nil
 }
 
 type queryResolver struct{ *Resolver }
 
 func (r *queryResolver) Users(ctx context.Context) ([]*User, error) {
-	var users []*User
-
-	user1 := &User{
-		ID:        "1",
-		FirstName: "Bolaji",
-		LastName:  "Olajide",
-		Email:     "bolaji@olajide.com",
-		CreatedAt: 0,
-		UpdatedAt: 0,
-	}
-
-	user2 := &User{
-		ID:        "2",
-		FirstName: "Tolulope",
-		LastName:  "Duyile",
-		Email:     "tolu@duyile.com",
-		CreatedAt: 0,
-		UpdatedAt: 0,
-	}
-
-	users = append(users, user1, user2)
-	return users, nil
+	return GetAllUsers()
 }

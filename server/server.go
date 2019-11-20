@@ -12,6 +12,7 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	golang_graphql_user_mgr.NewDatabase()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
